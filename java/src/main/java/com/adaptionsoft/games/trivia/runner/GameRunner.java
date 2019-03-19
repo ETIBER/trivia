@@ -1,6 +1,9 @@
 
 package com.adaptionsoft.games.trivia.runner;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import com.adaptionsoft.games.uglytrivia.Game;
 
@@ -11,26 +14,45 @@ public class GameRunner {
 
 	public static void main(String[] args) {
 		Game aGame = new Game();
-		
+
+		List<Integer> rolls1 = new ArrayList<>();
+		List<Integer> rolls2 = new ArrayList<>();
+
 		aGame.add("Chet");
 		aGame.add("Pat");
 		aGame.add("Sue");
-		
+
 		Random rand = new Random();
-	
+
 		do {
-			
-			aGame.roll(rand.nextInt(5) + 1);
-			
-			if (rand.nextInt(9) == 7) {
+
+			int roll1 = rand.nextInt(5) + 1;
+			rolls1.add(roll1);
+			aGame.roll(roll1);
+
+			int roll2 = rand.nextInt(9);
+			rolls2.add(roll2);
+			if (roll2 == 7) {
 				notAWinner = aGame.wrongAnswer();
 			} else {
 				notAWinner = aGame.wasCorrectlyAnswered();
 			}
-			
-			
-			
+
+
+
 		} while (notAWinner);
-		
+
+		printRoll(rolls1);
+		printRoll(rolls2);
+
+	}
+
+	private static void printRoll(List<Integer> rolls1) {
+		String joined = rolls1
+				.stream()
+				.map(Object::toString)
+				.collect(Collectors.joining(", "));
+
+		System.out.println(joined);
 	}
 }
