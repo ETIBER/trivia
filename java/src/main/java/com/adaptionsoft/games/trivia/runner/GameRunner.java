@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 import com.adaptionsoft.games.uglytrivia.Game;
+import com.adaptionsoft.games.uglytrivia.Player;
 
 
 public class GameRunner {
@@ -18,9 +19,9 @@ public class GameRunner {
 		List<Integer> rolls1 = new ArrayList<>();
 		List<Integer> rolls2 = new ArrayList<>();
 
-		aGame.add("Chet");
-		aGame.add("Pat");
-		aGame.add("Sue");
+		aGame.add(new Player("Chet"));
+		aGame.add(new Player("Pat"));
+		aGame.add(new Player("Sue"));
 
 		Random rand = new Random();
 

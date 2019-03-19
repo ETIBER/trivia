@@ -31,9 +31,9 @@ public class SomeTest {
 		// Given
 		Game aGame = new Game();
 
-		aGame.add("Chet");
-		aGame.add("Pat");
-		aGame.add("Sue");
+		aGame.add(new Player("Chet"));
+		aGame.add(new Player("Pat"));
+		aGame.add(new Player("Sue"));
 
 		// When
 		for (int i = 0; i < rollsGame.size(); i++) {
