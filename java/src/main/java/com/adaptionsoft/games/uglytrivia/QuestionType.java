@@ -1,8 +1,18 @@
 package com.adaptionsoft.games.uglytrivia;
 
 public enum QuestionType {
-    POP,
-    SCIENCE,
-    SPORTS,
-    ROCK
+    POP ("Pop"),
+    SCIENCE ("Science"),
+    SPORTS ("Sports"),
+    ROCK ("Rock");
+
+    private final String value;
+
+    QuestionType(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
 }

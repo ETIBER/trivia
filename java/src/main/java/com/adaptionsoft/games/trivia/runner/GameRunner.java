@@ -1,12 +1,14 @@
 
 package com.adaptionsoft.games.trivia.runner;
+
+import com.adaptionsoft.games.uglytrivia.Game;
+import com.adaptionsoft.games.uglytrivia.player.Player;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-import com.adaptionsoft.games.uglytrivia.Game;
-import com.adaptionsoft.games.uglytrivia.Player;
 
 
 public class GameRunner {

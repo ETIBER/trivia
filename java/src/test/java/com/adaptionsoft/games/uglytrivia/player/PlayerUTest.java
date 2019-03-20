@@ -1,4 +1,4 @@
-package com.adaptionsoft.games.uglytrivia;
+package com.adaptionsoft.games.uglytrivia.player;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
