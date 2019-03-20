@@ -8,7 +8,6 @@ public class Game {
     List<Player> players = new ArrayList();
 
     int[] places = new int[6];
-    int[] purses  = new int[6];
     boolean[] inPenaltyBox  = new boolean[6];
 
     LinkedList popQuestions = new LinkedList();
@@ -41,7 +40,6 @@ public class Game {
 	    players.add(player);
 
 	    places[howManyPlayers()] = 0;
-	    purses[howManyPlayers()] = 0;
 	    inPenaltyBox[howManyPlayers()] = false;
 
 	    print(player.getName() + " was added");
@@ -132,7 +130,7 @@ public class Game {
 	}
 
 	private boolean checkIfCurrentPlayerWon() {
-		purses[currentPlayer]++;
+		players.get(currentPlayer).increasePurseBy1();
 		printPlayerStats();
 
 		boolean winner = didPlayerWin();
@@ -145,7 +143,7 @@ public class Game {
 	private void printPlayerStats() {
 		print(players.get(currentPlayer).getName()
 				+ " now has "
-				+ purses[currentPlayer]
+				+ players.get(currentPlayer).getPurse()
 				+ " Gold Coins.");
 	}
 
@@ -161,7 +159,7 @@ public class Game {
 
 
 	private boolean didPlayerWin() {
-		return !(purses[currentPlayer] == 6);
+		return !(players.get(currentPlayer).getPurse() == 6);
 	}
 
 	private void print(String string) {
