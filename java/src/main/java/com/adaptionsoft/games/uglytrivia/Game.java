@@ -3,26 +3,29 @@ package com.adaptionsoft.games.uglytrivia;
 import com.adaptionsoft.games.uglytrivia.player.Player;
 import com.adaptionsoft.games.uglytrivia.player.Players;
 import com.adaptionsoft.games.uglytrivia.question.QuestionCategory;
-import com.adaptionsoft.games.uglytrivia.question.Questions;
+import com.adaptionsoft.games.uglytrivia.question.Deck;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Game {
-	final Players players;
-	final Questions questions;
+	private static final int NB_QUESTION = 50;
+	private final Players players;
+
+	private boolean isInitialized = false;
+
+	private final Deck deck;
+	private final DeckGenerator deckGenerator = new DeckGenerator(NB_QUESTION);
+
+	private final Board board;
+	private final BoardGenerator boardGenerator = new BoardGenerator();
 
 	int[] places = new int[6];
     boolean[] inPenaltyBox  = new boolean[6];
 
-    LinkedList popQuestions = new LinkedList();
-    LinkedList scienceQuestions = new LinkedList();
-    LinkedList sportsQuestions = new LinkedList();
-    LinkedList rockQuestions = new LinkedList();
-
-    int currentPlayer = 0;
+	int currentPlayer = 0;
     boolean isGettingOutOfPenaltyBox;
+	private PlayerPosition playersPosition;
 
 	public String getLogsAsString() {
 		return logs.toString();
@@ -30,11 +33,12 @@ public class Game {
 
 	public List<String> logs;
 
-	public  Game(){
+	public Game(){
 		logs = new ArrayList<>();
 		players = new Players();
-		questions = new Questions();
-    }
+		deck = deckGenerator.createDeck();
+		board = boardGenerator.createBoard();
+	}
 
 	public boolean add(Player player) {
 		players.addPlayer(player);
@@ -48,6 +52,9 @@ public class Game {
 	}
 
 	public void roll(int roll) {
+		if (! isInitialized){
+			playersPosition = new PlayerPosition(players.getPlayers());
+		}
 		print(players.getPlayers().get(currentPlayer).getName() + " is the current player");
 		print("They have rolled a " + roll);
 
@@ -91,21 +98,12 @@ public class Game {
 	}
 
 	private void askQuestion() {
-		System.out.println(questions.getQuestionsByCategory(currentCategory()).removeFirst());
+		System.out.println(deck.getQuestionsByCategory(currentCategory()).removeFirst());
 	}
 
 
 	private QuestionCategory currentCategory() {
-		if (places[currentPlayer] == 0) return QuestionCategory.POP;
-		if (places[currentPlayer] == 4) return QuestionCategory.POP;
-		if (places[currentPlayer] == 8) return QuestionCategory.POP;
-		if (places[currentPlayer] == 1) return QuestionCategory.SCIENCE;
-		if (places[currentPlayer] == 5) return QuestionCategory.SCIENCE;
-		if (places[currentPlayer] == 9) return QuestionCategory.SCIENCE;
-		if (places[currentPlayer] == 2) return QuestionCategory.SPORTS;
-		if (places[currentPlayer] == 6) return QuestionCategory.SPORTS;
-		if (places[currentPlayer] == 10) return QuestionCategory.SPORTS;
-		return QuestionCategory.ROCK;
+		return board.getCategoryAtPosition(places[currentPlayer]);
 	}
 
 	public boolean wasCorrectlyAnswered() {
