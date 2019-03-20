@@ -2,13 +2,16 @@ package com.adaptionsoft.games.uglytrivia;
 
 import com.adaptionsoft.games.uglytrivia.player.Player;
 import com.adaptionsoft.games.uglytrivia.player.Players;
+import com.adaptionsoft.games.uglytrivia.question.QuestionCategory;
+import com.adaptionsoft.games.uglytrivia.question.Questions;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Game {
-	final Players players = new Players();
+	final Players players;
+	final Questions questions;
 
 	int[] places = new int[6];
     boolean[] inPenaltyBox  = new boolean[6];
@@ -29,12 +32,8 @@ public class Game {
 
 	public  Game(){
 		logs = new ArrayList<>();
-    	for (int i = 0; i < 50; i++) {
-			popQuestions.addLast(new Question(QuestionType.POP, i));
-			scienceQuestions.addLast(new Question(QuestionType.SCIENCE, i));
-			sportsQuestions.addLast(new Question(QuestionType.SPORTS, i));
-			rockQuestions.addLast(new Question(QuestionType.ROCK, i));
-    	}
+		players = new Players();
+		questions = new Questions();
     }
 
 	public boolean add(Player player) {
@@ -92,28 +91,21 @@ public class Game {
 	}
 
 	private void askQuestion() {
-		if (currentCategory() == QuestionType.POP)
-			System.out.println(popQuestions.removeFirst());
-		if (currentCategory() == QuestionType.SCIENCE)
-			System.out.println(scienceQuestions.removeFirst());
-		if (currentCategory() == QuestionType.SPORTS)
-			System.out.println(sportsQuestions.removeFirst());
-		if (currentCategory() == QuestionType.ROCK)
-			System.out.println(rockQuestions.removeFirst());
+		System.out.println(questions.getQuestionsByCategory(currentCategory()).removeFirst());
 	}
 
 
-	private QuestionType currentCategory() {
-		if (places[currentPlayer] == 0) return QuestionType.POP;
-		if (places[currentPlayer] == 4) return QuestionType.POP;
-		if (places[currentPlayer] == 8) return QuestionType.POP;
-		if (places[currentPlayer] == 1) return QuestionType.SCIENCE;
-		if (places[currentPlayer] == 5) return QuestionType.SCIENCE;
-		if (places[currentPlayer] == 9) return QuestionType.SCIENCE;
-		if (places[currentPlayer] == 2) return QuestionType.SPORTS;
-		if (places[currentPlayer] == 6) return QuestionType.SPORTS;
-		if (places[currentPlayer] == 10) return QuestionType.SPORTS;
-		return QuestionType.ROCK;
+	private QuestionCategory currentCategory() {
+		if (places[currentPlayer] == 0) return QuestionCategory.POP;
+		if (places[currentPlayer] == 4) return QuestionCategory.POP;
+		if (places[currentPlayer] == 8) return QuestionCategory.POP;
+		if (places[currentPlayer] == 1) return QuestionCategory.SCIENCE;
+		if (places[currentPlayer] == 5) return QuestionCategory.SCIENCE;
+		if (places[currentPlayer] == 9) return QuestionCategory.SCIENCE;
+		if (places[currentPlayer] == 2) return QuestionCategory.SPORTS;
+		if (places[currentPlayer] == 6) return QuestionCategory.SPORTS;
+		if (places[currentPlayer] == 10) return QuestionCategory.SPORTS;
+		return QuestionCategory.ROCK;
 	}
 
 	public boolean wasCorrectlyAnswered() {

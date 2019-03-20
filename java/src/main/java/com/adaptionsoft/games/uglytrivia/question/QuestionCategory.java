@@ -1,6 +1,6 @@
-package com.adaptionsoft.games.uglytrivia;
+package com.adaptionsoft.games.uglytrivia.question;
 
-public enum QuestionType {
+public enum QuestionCategory {
     POP ("Pop"),
     SCIENCE ("Science"),
     SPORTS ("Sports"),
@@ -8,7 +8,7 @@ public enum QuestionType {
 
     private final String value;
 
-    QuestionType(String value) {
+    QuestionCategory(String value) {
         this.value = value;
     }
 

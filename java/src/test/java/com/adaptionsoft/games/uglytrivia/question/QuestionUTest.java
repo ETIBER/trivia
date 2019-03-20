@@ -1,4 +1,4 @@
-package com.adaptionsoft.games.uglytrivia;
+package com.adaptionsoft.games.uglytrivia.question;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -11,13 +11,13 @@ class QuestionUTest {
         @Test
         void should_BindQuestionType() {
             // Given
-            QuestionType expectedQuestionType = QuestionType.ROCK;
+            QuestionCategory expectedQuestionCategory = QuestionCategory.ROCK;
 
             // When
-            Question question = new Question(expectedQuestionType, 1);
+            Question question = new Question(expectedQuestionCategory, 1);
 
             //Then
-            assertThat(question.getType()).isEqualTo(expectedQuestionType);
+            assertThat(question.getCategory()).isEqualTo(expectedQuestionCategory);
 
         }
 
